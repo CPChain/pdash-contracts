@@ -13,6 +13,6 @@ PDash(Parallel Distributed Architecture for Data Storage and Sharing) is a new a
 + Evaluate: Evaluate a product
 + Reward: The liquidity incentive tokens for the PDash community
 
-## PDT: PDash Token
+## PDash Token: The liquidity incentive tokens for the PDash community
 
 PDT(PDash Token) is the liquidity incentive tokens for the PDash community.
