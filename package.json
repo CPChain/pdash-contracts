@@ -1,0 +1,10 @@
+{
+    "scripts": {
+        "build": "truffle build",
+        "test": "truffle test",
+        "test:coverage": "truffle run coverage"
+    },
+    "devDependencies": {
+        "solidity-coverage": "^0.7.16"
+    }
+}
