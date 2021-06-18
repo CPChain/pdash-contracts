@@ -1,5 +1,7 @@
 # PDash Contracts
 
+![Test Coverage Badge](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/zgljl2012/676521a4ad619576708a8aad39a1eaaa/raw/pdash_contracts__heads_main.json)
+
 PDash is a blockchain-based data sharing platform.
 
 ## Introduction
