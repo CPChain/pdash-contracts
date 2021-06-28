@@ -1,5 +1,5 @@
-var Greeter = artifacts.require("./Greeter.sol");
+var Product = artifacts.require("./Product.sol");
 
 module.exports = function(deployer) {
-     deployer.deploy(Greeter, 'hello world'); //"参数在第二个变量携带"
+     deployer.deploy(Product);
 };

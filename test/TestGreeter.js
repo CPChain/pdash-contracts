@@ -1,9 +1,8 @@
-const Greeter = artifacts.require("Greeter");
+const Product = artifacts.require("Product");
 
-contract("Greeter", (accounts) => {
-  it("Greeter", async () => {
-    const instance = await Greeter.deployed('hello world');
-    let text = await instance.greet()
-    console.log(text)
+contract("Product", (accounts) => {
+  it("Product", async () => {
+    const instance = await Product.deployed();
+    console.log(accounts[0], await instance.owner())
   })
 })
