@@ -19,6 +19,8 @@ import "./Context.sol";
 contract Ownable is Context {
     address private _owner;
 
+    bool public enabled = true; // if upgrade contract, then the old contract should be disabled
+
     event OwnershipTransferred(address indexed previousOwner, address indexed newOwner);
 
     /**
@@ -41,6 +43,20 @@ contract Ownable is Context {
     modifier onlyOwner() {
         require(owner() == _msgSender(), "Ownable: caller is not the owner");
         _;
+    }
+
+    modifier onlyEnabled() {
+        require(enabled);
+        _;
+    }
+
+    // owner can enable and disable rnode contract
+    function enableContract() public onlyOwner {
+        enabled = true;
+    }
+
+    function disableContract() public onlyOwner {
+        enabled = false;
     }
 
     /**
