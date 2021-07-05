@@ -16,6 +16,9 @@ interface IProductManager {
     // AdminDisableProduct event
     event AdminDisableProduct(uint256 id);
 
+    // AdminEnableProduct event
+    event AdminEnableProduct(uint256 id);
+
     /**
      * Add new ERC20, returns a generated ID.
      * Emits a {AddNewERC20} event.
@@ -50,5 +53,11 @@ interface IProductManager {
      * Emits a {AdminDisableProduct} event.
      */
     function disableProduct(uint256 id) external;
+
+    /**
+     * Enable product by admin
+     * Emits a {AdminEnableProduct} event.
+     */
+    function EnableProduct(uint256 id) external;
 
 }

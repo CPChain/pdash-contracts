@@ -29,6 +29,7 @@ contract Product is IProductManager, Ownable{
         address creator;
         bool removed;
         bool disabled;
+        bool enabled_cpc; // If enable the CPC payment way
     }
     uint private _product_seq = 0;
     mapping(uint => ProductItem) _products;
@@ -107,6 +108,93 @@ contract Product is IProductManager, Ownable{
      * Emits a {AdminDisableProduct} event.
      */
     function disableProduct(uint256 id) external onlyOwner onlyEnabled {
-
+        require(_products[id].id > 0, "This product not exists");
+        require(!_products[id].disabled, "This product have been disabled");
+        _products[id].disabled = true;
+        emit AdminDisableProduct(id);
     }
+
+    /**
+     * Enable product by admin
+     * Emits a {AdminEnableProduct} event.
+     */
+    function EnableProduct(uint256 id) external {
+        require(_products[id].id > 0, "This product not exists");
+        require(_products[id].disabled, "This product haven't been disabled");
+        _products[id].disabled = false;
+        emit AdminEnableProduct(id);
+    }
+
+    /**
+     * Create product, returns a generated product id.
+     * Emits a {CreateProduct} event.
+     */
+    function createProduct(string name, string extend, uint256 price) external returns (uint256) {
+        
+    }
+
+    /**
+     * Edit Product
+     * Emits a {EditProduct} event.
+     */
+    function editProduct(uint256 id, string name, string extend, uint256 price) external;
+
+    /**
+     * Remove Product
+     * Emits a {RemoveProduct} event.
+     */
+    function removeProduct(uint256 id) external;
+
+    /**
+     * Count of products
+     */
+    function countOfProducts() external view returns (uint256);
+
+    /**
+     * Get the name of a product
+     */
+    function getNameOfProduct(uint256 id) external view returns (string);
+
+    /**
+     * Get the extend information of a product
+     */
+    function getExtendOfProduct(uint256 id) external view returns (string);
+
+    /**
+     * Get the price of a product
+     */
+    function getPriceOfProduct(uint256 id) external view returns (uint256);
+
+    /**
+     * Add a payment method of Product
+     * Emits a {AddPaymentWay} event.
+     */
+    function addPaymentWay(uint coinID, uint256 productID, uint256 price) external returns (uint256);
+
+    /**
+     * Set the price of a payment of a product
+     * Emits a {SetPaymentWayPrice} event.
+     */
+    function setPaymentWayPrice(uint256 id, uint256 price) external;
+
+    /**
+     * Remove a payment.
+     * Emits a {RemovePayment} event.
+     */
+    function removePaymentWayPrice(uint256 id) external;
+
+    /**
+     * List all payment's ID of a product
+     */
+    function listPaymentWaysOfProduct(uint256 productID) external view returns (uint256[]);
+
+    /**
+     * Get the ERC20 address of a payment.
+     */
+    function getPaymentWayAddressByID(uint256 id) external view returns (address);
+
+    /**
+     * Get the price of a payment
+     */
+    function getPaymentWayPriceByID(uint256 id) external view returns (uint256);
 }
