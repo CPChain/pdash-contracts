@@ -16,10 +16,10 @@ interface IProduct {
     event AddPayment(uint256 id, uint coinID, uint256 productID, uint256 price);
 
     // SetPaymentWayPrice event
-    event SetPaymentWayPrice(uint256 id, uint256 price);
+    event SetPaymentWayPrice(uint coinID, uint256 productID, uint256 price);
 
     // RemovePaymentWay event
-    event RemovePaymentWay(uint256 id);
+    event RemovePaymentWay(uint coinID, uint256 productID);
 
     /**
      * Create product, returns a generated product id.
@@ -69,27 +69,11 @@ interface IProduct {
      * Set the price of a payment of a product
      * Emits a {SetPaymentWayPrice} event.
      */
-    function setPaymentWayPrice(uint256 id, uint256 price) external;
+    function setPaymentWayPrice(uint coinID, uint256 productID, uint256 price) external;
 
     /**
      * Remove a payment.
      * Emits a {RemovePayment} event.
      */
-    function removePaymentWayPrice(uint256 id) external;
-
-    /**
-     * List all payment's ID of a product
-     */
-    function listPaymentWaysOfProduct(uint256 productID) external view returns (uint256[]);
-
-    /**
-     * Get the ERC20 address of a payment.
-     */
-    function getPaymentWayAddressByID(uint256 id) external view returns (address);
-
-    /**
-     * Get the price of a payment
-     */
-    function getPaymentWayPriceByID(uint256 id) external view returns (uint256);
-
+    function removePaymentWayPrice(uint coinID, uint256 productID) external;
 }

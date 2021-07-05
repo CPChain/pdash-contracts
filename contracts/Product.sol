@@ -38,13 +38,13 @@ contract Product is IProductManager, Ownable, IProduct {
 
     // Payment way of a products
     struct ProductPaymentWay {
-        uint id;
+        uint256 id;
         uint256 productID;
         uint coinID;
         uint256 price;
     }
-    uint private _payment_ways_seq = 0;
-    mapping(uint => ProductPaymentWay[]) _payment_ways; // product_id => Payments of this product
+    uint256 private _payment_ways_seq = 0;
+    mapping(uint256 => ProductPaymentWay[]) _payment_ways; // product_id => Payments of this product
     uint payment_ways_limit; // The upper limit of payment ways' count
 
     constructor() public {}
@@ -217,7 +217,7 @@ contract Product is IProductManager, Ownable, IProduct {
      * Add a payment method of Product
      * Emits a {AddPaymentWay} event.
      */
-    function addPaymentWay(uint coinID, uint256 productID, uint256 price) external returns (uint256) {
+    function addPaymentWay(uint coinID, uint256 productID, uint256 price) external onlyEnabled returns (uint256) {
         require(_coins[coinID].id > 0, "This token not exists");
         require(!_coins[coinID].removed, "This token have been removed");
         require(!_coins[coinID].disabled, "This token have been disabled");
@@ -242,26 +242,33 @@ contract Product is IProductManager, Ownable, IProduct {
      * Set the price of a payment of a product
      * Emits a {SetPaymentWayPrice} event.
      */
-    function setPaymentWayPrice(uint256 id, uint256 price) external;
+    function setPaymentWayPrice(uint coinID, uint256 productID, uint256 price) external onlyEnabled {
+        require(_coins[coinID].id > 0, "This token not exists");
+        require(_products[productID].id > 0, "This product not exists");
+        ProductPaymentWay[] storage ways = _payment_ways[productID];
+        for(uint i = 0; i < ways.length; i++) {
+            if(ways[i].coinID == coinID) {
+                ways[i].price = price;
+                emit SetPaymentWayPrice(coinID, productID, price);
+                return;
+            }
+        }
+    }
 
     /**
      * Remove a payment.
      * Emits a {RemovePayment} event.
      */
-    function removePaymentWayPrice(uint256 id) external;
-
-    /**
-     * List all payment's ID of a product
-     */
-    function listPaymentWaysOfProduct(uint256 productID) external view returns (uint256[]);
-
-    /**
-     * Get the ERC20 address of a payment.
-     */
-    function getPaymentWayAddressByID(uint256 id) external view returns (address);
-
-    /**
-     * Get the price of a payment
-     */
-    function getPaymentWayPriceByID(uint256 id) external view returns (uint256);
+    function removePaymentWayPrice(uint coinID, uint256 productID) external onlyEnabled {
+        require(_coins[coinID].id > 0, "This token not exists");
+        require(_products[productID].id > 0, "This product not exists");
+        ProductPaymentWay[] storage ways = _payment_ways[productID];
+        for(uint i = 0; i < ways.length; i++) {
+            if(ways[i].coinID == coinID) {
+                delete ways[i];
+                emit RemovePaymentWay(coinID, productID);
+                return;
+            }
+        }
+    }
 }
