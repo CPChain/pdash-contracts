@@ -39,7 +39,7 @@ contract Product is IProductManager, Ownable, IProduct {
     // Payment way of a products
     struct ProductPaymentWay {
         uint id;
-        uint productID;
+        uint256 productID;
         uint coinID;
         uint256 price;
     }
@@ -217,7 +217,26 @@ contract Product is IProductManager, Ownable, IProduct {
      * Add a payment method of Product
      * Emits a {AddPaymentWay} event.
      */
-    function addPaymentWay(uint coinID, uint256 productID, uint256 price) external returns (uint256);
+    function addPaymentWay(uint coinID, uint256 productID, uint256 price) external returns (uint256) {
+        require(_coins[coinID].id > 0, "This token not exists");
+        require(!_coins[coinID].removed, "This token have been removed");
+        require(!_coins[coinID].disabled, "This token have been disabled");
+        require(_products[productID].id > 0, "This product not exists");
+        require(!_products[productID].removed, "This product have been removed");
+        require(!_products[productID].disabled, "This product have been disabled");
+        ProductPaymentWay[] storage ways = _payment_ways[productID];
+        for(uint i = 0; i < ways.length; i++) {
+            require(ways[i].coinID != coinID, "This payment way exists!");
+        }
+        _payment_ways_seq += 1;
+        _payment_ways[_payment_ways_seq].push(ProductPaymentWay({
+            id: _payment_ways_seq,
+            coinID: coinID,
+            productID: productID,
+            price: price
+        }));
+        emit AddPayment(_payment_ways_seq, coinID, productID, price);
+    }
 
     /**
      * Set the price of a payment of a product
