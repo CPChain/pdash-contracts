@@ -21,6 +21,29 @@ contract Product is IProductManager, Ownable{
     Set.Data _coins_addr;
 
     // products
+    struct ProductItem {
+        uint id;
+        string name;
+        string extend;
+        uint256 price; // CPC price
+        address creator;
+        bool removed;
+        bool disabled;
+    }
+    uint private _product_seq = 0;
+    mapping(uint => ProductItem) _products;
+    mapping(string => bool) _product_names;
+
+    // Payment way of a products
+    struct ProductPaymentWay {
+        uint id;
+        uint productID;
+        uint coinID;
+        uint256 price;
+    }
+    uint private _payment_ways_seq = 0;
+    mapping(uint => ProductPaymentWay[]) _payment_ways; // product_id => Payments of this product
+    uint payment_ways_limit; // The upper limit of payment ways' count
 
     constructor() public {}
 

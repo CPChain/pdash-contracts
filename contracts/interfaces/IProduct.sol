@@ -12,14 +12,14 @@ interface IProduct {
     // RemoveProduct event
     event RemoveProduct(uint256 id);
 
-    // AddPayment event
+    // AddPaymentWay event
     event AddPayment(uint256 id, uint coinID, uint256 productID, uint256 price);
 
-    // SetPaymentPrice event
-    event SetPaymentPrice(uint256 id, uint256 price);
+    // SetPaymentWayPrice event
+    event SetPaymentWayPrice(uint256 id, uint256 price);
 
-    // RemovePayment event
-    event RemovePayment(uint256 id);
+    // RemovePaymentWay event
+    event RemovePaymentWay(uint256 id);
 
     /**
      * Create product, returns a generated product id.
@@ -61,35 +61,35 @@ interface IProduct {
 
     /**
      * Add a payment method of Product
-     * Emits a {AddPayment} event.
+     * Emits a {AddPaymentWay} event.
      */
-    function addPayment(uint coinID, uint256 productID, uint256 price) external returns (uint256);
+    function addPaymentWay(uint coinID, uint256 productID, uint256 price) external returns (uint256);
 
     /**
      * Set the price of a payment of a product
-     * Emits a {SetPaymentPrice} event.
+     * Emits a {SetPaymentWayPrice} event.
      */
-    function setPaymentPrice(uint256 id, uint256 price) external;
+    function setPaymentWayPrice(uint256 id, uint256 price) external;
 
     /**
      * Remove a payment.
      * Emits a {RemovePayment} event.
      */
-    function removePaymentPrice(uint256 id) external;
+    function removePaymentWayPrice(uint256 id) external;
 
     /**
      * List all payment's ID of a product
      */
-    function listPaymentsOfProduct(uint256 productID) external view returns (uint256[]);
+    function listPaymentWaysOfProduct(uint256 productID) external view returns (uint256[]);
 
     /**
      * Get the ERC20 address of a payment.
      */
-    function getPaymentAddressByID(uint256 id) external view returns (address);
+    function getPaymentWayAddressByID(uint256 id) external view returns (address);
 
     /**
      * Get the price of a payment
      */
-    function getPaymentPriceByID(uint256 id) external view returns (uint256);
+    function getPaymentWayPriceByID(uint256 id) external view returns (uint256);
 
 }
