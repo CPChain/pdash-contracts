@@ -5,7 +5,7 @@ import "./lib/set.sol";
 import "./interfaces/IProduct.sol";
 import "./interfaces/IProductManager.sol";
 
-contract Product is IProductManager, Ownable{
+contract Product is IProductManager, Ownable, IProduct {
     using Set for Set.Data;
 
     // coins
@@ -22,7 +22,7 @@ contract Product is IProductManager, Ownable{
 
     // products
     struct ProductItem {
-        uint id;
+        uint256 id;
         string name;
         string extend;
         uint256 price; // CPC price
@@ -31,8 +31,9 @@ contract Product is IProductManager, Ownable{
         bool disabled;
         bool enabled_cpc; // If enable the CPC payment way
     }
-    uint private _product_seq = 0;
-    mapping(uint => ProductItem) _products;
+    uint256 private _product_seq = 0;
+    uint256 private _product_cnt = 0;
+    mapping(uint256 => ProductItem) _products;
     mapping(string => bool) _product_names;
 
     // Payment way of a products
@@ -118,7 +119,7 @@ contract Product is IProductManager, Ownable{
      * Enable product by admin
      * Emits a {AdminEnableProduct} event.
      */
-    function EnableProduct(uint256 id) external {
+    function EnableProduct(uint256 id) external onlyOwner onlyEnabled {
         require(_products[id].id > 0, "This product not exists");
         require(_products[id].disabled, "This product haven't been disabled");
         _products[id].disabled = false;
@@ -129,41 +130,88 @@ contract Product is IProductManager, Ownable{
      * Create product, returns a generated product id.
      * Emits a {CreateProduct} event.
      */
-    function createProduct(string name, string extend, uint256 price) external returns (uint256) {
-        
+    function createProduct(string name, string extend, uint256 price) external onlyEnabled returns (uint256) {
+        require(!_product_names[name], "This name already exists!");
+        _product_seq += 1;
+        _product_names[name] = true;
+        _products[_product_seq] = ProductItem({
+            id: _product_seq,
+            name: name,
+            extend: extend,
+            creator: msg.sender,
+            price: price,
+            disabled: false,
+            enabled_cpc: true,
+            removed: false
+        });
+        _product_cnt += 1;
+        emit CreateProduct(_product_seq, name, extend, price, msg.sender);
+        return _product_seq;
+    }
+
+    function equals(string memory a, string memory b) internal pure returns (bool) {
+        return keccak256(bytes(a)) == keccak256(bytes(b));
     }
 
     /**
      * Edit Product
      * Emits a {EditProduct} event.
      */
-    function editProduct(uint256 id, string name, string extend, uint256 price) external;
+    function editProduct(uint256 id, string name, string extend, uint256 price) external onlyEnabled {
+        require(_products[id].id > 0, "This product not exists!");
+        require(_products[id].creator == msg.sender, "You're not the creator of this product");
+        require(!_products[id].removed, "This product have been removed");
+        if (equals(_products[id].name, name)) {
+            require(!_product_names[name], "This name already exists!");
+        }
+        delete _product_names[_products[id].name];
+        _product_names[name] = true;
+        _products[id].name = name;
+        _products[id].extend = extend;
+        _products[id].price = price;
+        emit EditProduct(id, name, extend, price, msg.sender);
+    }
 
     /**
      * Remove Product
      * Emits a {RemoveProduct} event.
      */
-    function removeProduct(uint256 id) external;
+    function removeProduct(uint256 id) external onlyEnabled {
+        require(_products[id].id > 0, "This product not exists!");
+        require(_products[id].creator == msg.sender, "You're not the creator of this product");
+        delete _product_names[_products[id].name];
+        _products[id].removed = true;
+        _product_cnt -= 1;
+        emit RemoveProduct(id);
+    }
 
     /**
      * Count of products
      */
-    function countOfProducts() external view returns (uint256);
+    function countOfProducts() external view returns (uint256) {
+        return _product_cnt;
+    }
 
     /**
      * Get the name of a product
      */
-    function getNameOfProduct(uint256 id) external view returns (string);
+    function getNameOfProduct(uint256 id) external view returns (string) {
+        return _products[id].name;
+    }
 
     /**
      * Get the extend information of a product
      */
-    function getExtendOfProduct(uint256 id) external view returns (string);
+    function getExtendOfProduct(uint256 id) external view returns (string) {
+        return _products[id].extend;
+    }
 
     /**
      * Get the price of a product
      */
-    function getPriceOfProduct(uint256 id) external view returns (uint256);
+    function getPriceOfProduct(uint256 id) external view returns (uint256) {
+        return _products[id].price;
+    }
 
     /**
      * Add a payment method of Product
