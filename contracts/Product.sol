@@ -217,6 +217,14 @@ contract Product is IProductManager, Ownable, IProduct {
     }
 
     /**
+     * Get the information of a product
+     * Returns {name extend, price}
+     */
+    function getProduct(uint256 id) external view returns (string, string, uint256) {
+        return (_products[id].name, _products[id].extend, _products[id].price);
+    }
+
+    /**
      * Add a payment method of Product
      * Emits a {AddPaymentWay} event.
      */

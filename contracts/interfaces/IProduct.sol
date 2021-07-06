@@ -45,6 +45,12 @@ interface IProduct {
     function countOfProducts() external view returns (uint256);
 
     /**
+     * Get the information of a product
+     * Returns {name extend, price}
+     */
+    function getProduct(uint256 id) external view returns (string, string, uint256);
+
+    /**
      * Get the name of a product
      */
     function getNameOfProduct(uint256 id) external view returns (string);
