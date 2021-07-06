@@ -86,5 +86,10 @@ interface IProduct {
      * Remove a payment.
      * Emits a {RemovePayment} event.
      */
-    function removePaymentWayPrice(uint coinID, uint256 productID) external;
+    function removePaymentWay(uint coinID, uint256 productID) external;
+
+    /**
+     * Get price
+     */
+    function getPaymentWayPrice(uint coinID, uint256 productID) external view returns (uint256);
 }

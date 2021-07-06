@@ -278,7 +278,7 @@ contract Product is IProductManager, Ownable, IProduct {
      * Remove a payment.
      * Emits a {RemovePayment} event.
      */
-    function removePaymentWayPrice(uint coinID, uint256 productID) external onlyEnabled {
+    function removePaymentWay(uint coinID, uint256 productID) external onlyEnabled {
         require(_coins[coinID].id > 0, "This token not exists");
         require(_products[productID].id > 0, "This product not exists");
         ProductPaymentWay[] storage ways = _payment_ways[productID];
@@ -287,6 +287,21 @@ contract Product is IProductManager, Ownable, IProduct {
                 delete ways[i];
                 emit RemovePaymentWay(coinID, productID);
                 return;
+            }
+        }
+        require(false, "Payment way not exists");
+    }
+
+    /**
+     * Get price
+     */
+    function getPaymentWayPrice(uint coinID, uint256 productID) external view returns (uint256) {
+        require(_coins[coinID].id > 0, "This token not exists");
+        require(_products[productID].id > 0, "This product not exists");
+        ProductPaymentWay[] storage ways = _payment_ways[productID];
+        for(uint i = 0; i < ways.length; i++) {
+            if(ways[i].coinID == coinID) {
+                return ways[i].price;
             }
         }
     }
