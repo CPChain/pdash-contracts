@@ -63,6 +63,6 @@ interface IProductManager {
      * Enable product by admin
      * Emits a {AdminEnableProduct} event.
      */
-    function EnableProduct(uint256 id) external;
+    function enableProduct(uint256 id) external;
 
 }

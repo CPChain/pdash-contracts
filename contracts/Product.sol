@@ -112,7 +112,8 @@ contract Product is IProductManager, Ownable, IProduct {
      * Emits a {AdminDisableProduct} event.
      */
     function disableProduct(uint256 id) external onlyOwner onlyEnabled {
-        require(_products[id].id > 0, "This product not exists");
+        require(_products[id].id > 0, "This product not exists!");
+        require(!_products[id].removed, "This product have been removed");
         require(!_products[id].disabled, "This product have been disabled");
         _products[id].disabled = true;
         emit AdminDisableProduct(id);
@@ -122,11 +123,19 @@ contract Product is IProductManager, Ownable, IProduct {
      * Enable product by admin
      * Emits a {AdminEnableProduct} event.
      */
-    function EnableProduct(uint256 id) external onlyOwner onlyEnabled {
-        require(_products[id].id > 0, "This product not exists");
+    function enableProduct(uint256 id) external onlyOwner onlyEnabled {
+        require(_products[id].id > 0, "This product not exists!");
+        require(!_products[id].removed, "This product have been removed");
         require(_products[id].disabled, "This product haven't been disabled");
         _products[id].disabled = false;
         emit AdminEnableProduct(id);
+    }
+
+    /**
+     * Check if product have been disabled
+     */
+    function isProductDisabled(uint256 id) external view returns (bool) {
+        return _products[id].disabled;
     }
 
     /**

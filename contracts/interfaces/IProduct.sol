@@ -61,6 +61,11 @@ interface IProduct {
     function getExtendOfProduct(uint256 id) external view returns (string);
 
     /**
+     * Check if product have been disabled
+     */
+    function isProductDisabled(uint256 id) external view returns (bool);
+
+    /**
      * Get the price of a product
      */
     function getPriceOfProduct(uint256 id) external view returns (uint256);
