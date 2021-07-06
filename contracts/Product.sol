@@ -10,10 +10,8 @@ contract Product is IProductManager, Ownable, IProduct {
 
     // coins
     struct Coin {
-        address erc20;
         uint id;
-        bool removed;
-        bool existed;
+        address erc20;
         bool disabled;
     }
     uint private _coin_seq = 0;
@@ -57,7 +55,7 @@ contract Product is IProductManager, Ownable, IProduct {
         require(!_coins_addr.contains(erc20), "This ERC-20 already exists!");
         _coin_seq += 1;
         _coins_addr.insert(erc20);
-        _coins[_coin_seq] = Coin({erc20: erc20, id: _coin_seq, removed: false, existed: true, disabled: false});
+        _coins[_coin_seq] = Coin({erc20: erc20, id: _coin_seq, disabled: false});
         emit AddNewERC20(_coin_seq, erc20);
         return 0;
     }
@@ -74,10 +72,10 @@ contract Product is IProductManager, Ownable, IProduct {
      * Emits a {RemoveERC20} event
      */
     function removeERC20(uint id) external onlyOwner onlyEnabled {
-        require(_coins[id].existed, "This coin not exists");
-        require(!_coins[id].removed, "This coin have been removed");
-        _coins[id].removed = true;
+        require(_coins[id].id > 0, "This coin not exists");
         emit RemoveERC20(id, _coins[id].erc20);
+        _coins_addr.remove(_coins[id].erc20);
+        delete _coins[id];
     }
 
     /**
@@ -85,8 +83,7 @@ contract Product is IProductManager, Ownable, IProduct {
      * Emits a {DisableERC20} event.
      */
     function disableERC20(uint id) external onlyOwner onlyEnabled {
-        require(_coins[id].existed, "This coin not exists");
-        require(!_coins[id].removed, "This coin have been removed");
+        require(_coins[id].id > 0, "This coin not exists");
         require(!_coins[id].disabled, "This coin have been disabled");
         _coins[id].disabled = true;
         emit DisableERC20(id, _coins[id].erc20);
@@ -97,11 +94,17 @@ contract Product is IProductManager, Ownable, IProduct {
      * Emits a {EnableERC20} event.
      */
     function enableERC20(uint id) external onlyOwner onlyEnabled {
-        require(_coins[id].existed, "This coin not exists");
-        require(!_coins[id].removed, "This coin have been removed");
+        require(_coins[id].id > 0, "This coin not exists");
         require(_coins[id].disabled, "This coin haven't been disabled");
         _coins[id].disabled = false;
         emit EnableERC20(id, _coins[id].erc20);
+    }
+
+    /**
+     * Check if disabled
+     */
+    function isERC20Disabled(uint id) external view returns (bool) {
+        return _coins[id].disabled;
     }
 
     /**
@@ -219,7 +222,6 @@ contract Product is IProductManager, Ownable, IProduct {
      */
     function addPaymentWay(uint coinID, uint256 productID, uint256 price) external onlyEnabled returns (uint256) {
         require(_coins[coinID].id > 0, "This token not exists");
-        require(!_coins[coinID].removed, "This token have been removed");
         require(!_coins[coinID].disabled, "This token have been disabled");
         require(_products[productID].id > 0, "This product not exists");
         require(!_products[productID].removed, "This product have been removed");

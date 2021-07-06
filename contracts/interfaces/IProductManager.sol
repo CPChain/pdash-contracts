@@ -49,6 +49,11 @@ interface IProductManager {
     function enableERC20(uint id) external;
 
     /**
+     * Check if disabled
+     */
+    function isERC20Disabled(uint id) external view returns (bool);
+
+    /**
      * Disable product by admin
      * Emits a {AdminDisableProduct} event.
      */

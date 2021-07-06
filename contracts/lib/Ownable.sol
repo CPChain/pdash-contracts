@@ -46,7 +46,7 @@ contract Ownable is Context {
     }
 
     modifier onlyEnabled() {
-        require(enabled);
+        require(enabled, "The contract is disabled");
         _;
     }
 
