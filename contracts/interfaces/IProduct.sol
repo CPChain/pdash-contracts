@@ -30,7 +30,7 @@ interface IProduct {
     /**
      * If the file exists
      */
-    function isFileHashExists(string file_uri, string file_hash) external view returns (bool);
+    function isFileExists(string file_uri, string file_hash) external view returns (bool);
 
     /**
      * Edit Product, but can not update the file_uri and file_hash

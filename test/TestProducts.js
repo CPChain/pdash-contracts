@@ -24,6 +24,9 @@ contract("Product", (accounts) => {
     assert.equal(name, 'p1')
     assert.equal(extend, '{"description": ""}')
     assert.equal(price, 1)
+    assert.equal(await instance.isFileExists('file_uri', 'file_hash'), true, "The file should exists")
+    assert.equal(await instance.isFileExists('file_uri', 'file_has1'), false, "The file should not exists")
+    assert.equal(await instance.isFileExists('file_uri1', 'file_hash'), false, "The file should not exists")
   })
   it("Create again", async ()=> {
     const instance = await Product.deployed();

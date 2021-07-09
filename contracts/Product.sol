@@ -183,7 +183,7 @@ contract Product is IProductManager, Ownable, IProduct {
     /**
      * If the file exists
      */
-    function isFileHashExists(string file_uri, string file_hash) external view returns (bool) {
+    function isFileExists(string file_uri, string file_hash) external view returns (bool) {
         return _files[file_uri].existed && equals(_files[file_uri].val, file_hash);
     }
 
