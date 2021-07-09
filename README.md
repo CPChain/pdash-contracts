@@ -18,3 +18,33 @@ PDash(Parallel Distributed Architecture for Data Storage and Sharing) is a new a
 ## PDash Token: The liquidity incentive tokens for the PDash community
 
 PDT(PDash Token) is the liquidity incentive tokens for the PDash community.
+
+## Extend Information
+
+When creating a product, you should specify the name of the product, and you can specify the extended information. The extended information marshal to a JSON. The key field as below:
+
+```json
+
+{
+    "description": "...",
+    "download_uri": "uri://..."
+}
+
+```
+
+The download-URI is very important. If your extended information does not include this field, the PDash-Server won't make it visible in the market.
+
+When someone buys your product, you should send the decrypt information to him by encrypted chat.
+
+The decrypt information marshals to a JSON too:
+
+```json
+
+{
+    "algorithm": "AES",
+    "pass": "..."
+}
+
+```
+
+Now, we only support AES.
