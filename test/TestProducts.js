@@ -4,7 +4,7 @@ const truffleAssert = require("truffle-assertions");
 contract("Product", (accounts) => {
   it("Create Product", async () => {
     const instance = await Product.deployed();
-    let tx = await instance.createProduct('p1', '{"description": ""}', 1)
+    let tx = await instance.createProduct('p1', '{"description": ""}', 1, "file_uri", "file_hash")
     truffleAssert.eventEmitted(tx, 'CreateProduct', (e) => {
       assert.equal(e.id, 1)
       assert.equal(e.name, 'p1')
@@ -28,7 +28,7 @@ contract("Product", (accounts) => {
   it("Create again", async ()=> {
     const instance = await Product.deployed();
     try {
-      await instance.createProduct('p1', '{"description": ""}', 1)
+      await instance.createProduct('p1', '{"description": ""}', 1, "file_uri", "file_hash")
       assert.fail()
     } catch(error) {
       assert.ok(error.toString().includes("This name already exists!"))
@@ -86,7 +86,7 @@ contract("Product", (accounts) => {
       assert.ok(error.toString().includes("This product not exists!"))
     }
 
-    await instance.createProduct('p1', '{"description": ""}', 1)
+    await instance.createProduct('p1', '{"description": ""}', 1, "file_uri-aaa", "file_hash")
     try {
       await instance.enableProduct(2)
       assert.fail()
@@ -148,7 +148,7 @@ contract("Product", (accounts) => {
       let id = 3 + i
       let price = 1 + i
       let desc = `'{"description": "${i}"}'`
-      let tx = await instance.createProduct(name, desc, price)
+      let tx = await instance.createProduct(name, desc, price, `file_uri-${name}`, "file_hash")
       truffleAssert.eventEmitted(tx, 'CreateProduct', (e) => {
         assert.equal(e.id, id)
         assert.equal(e.name, name)

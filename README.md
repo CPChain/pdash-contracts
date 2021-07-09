@@ -21,13 +21,13 @@ PDT(PDash Token) is the liquidity incentive tokens for the PDash community.
 
 ## Extend Information
 
-When creating a product, you should specify the name of the product, and you can specify the extended information. The extended information marshal to a JSON. The key field as below:
+When creating a product, you should specify the (name, file_uri, file_hash) of the product, and you can specify the extended information. The extended information marshal to a JSON. The key field as below:
 
 ```json
 
 {
     "description": "...",
-    "download_uri": "uri://..."
+    "cover_image_uri": "..."
 }
 
 ```

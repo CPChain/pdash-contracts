@@ -7,7 +7,7 @@ contract("Product", (accounts) => {
     // add Coin
     await instance.addERC20(accounts[1])
     // add Product
-    await instance.createProduct('p1', '{"description": ""}', 1)
+    await instance.createProduct('p1', '{"description": ""}', 1, "file_uri", "file_hash")
 
     // add payment way
     let tx = await instance.addPaymentWay(1, 1, 188)

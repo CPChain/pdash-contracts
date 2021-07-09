@@ -4,7 +4,7 @@ pragma solidity ^0.4.24;
 interface IProduct {
 
     // CreateProduct event
-    event CreateProduct(uint256 id, string name, string extend, uint256 price, address creator);
+    event CreateProduct(uint256 id, string name, string extend, uint256 price, address creator, string file_uri, string file_hash);
 
     // EditProduct event
     event EditProduct(uint256 id, string name, string extend, uint256 price, address creator);
@@ -25,10 +25,15 @@ interface IProduct {
      * Create product, returns a generated product id.
      * Emits a {CreateProduct} event.
      */
-    function createProduct(string name, string extend, uint256 price) external returns (uint256);
+    function createProduct(string name, string extend, uint256 price, string file_uri, string file_hash) external returns (uint256);
 
     /**
-     * Edit Product
+     * If the file exists
+     */
+    function isFileHashExists(string file_uri, string file_hash) external view returns (bool);
+
+    /**
+     * Edit Product, but can not update the file_uri and file_hash
      * Emits a {EditProduct} event.
      */
     function editProduct(uint256 id, string name, string extend, uint256 price) external;
@@ -59,6 +64,16 @@ interface IProduct {
      * Get the extend information of a product
      */
     function getExtendOfProduct(uint256 id) external view returns (string);
+
+    /**
+     * Get file uri
+     */
+    function getFileUri(uint256 id) external view returns (string);
+
+    /**
+     * Get file hash
+     */
+    function getFileHash(uint256 id) external view returns (string);
 
     /**
      * Check if product have been disabled

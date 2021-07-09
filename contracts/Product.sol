@@ -5,8 +5,16 @@ import "./lib/set.sol";
 import "./interfaces/IProduct.sol";
 import "./interfaces/IProductManager.sol";
 
+library Library {
+  struct Data {
+     string val;
+     bool existed;
+   }
+}
+
 contract Product is IProductManager, Ownable, IProduct {
     using Set for Set.Data;
+    using Library for Library.Data;
 
     // coins
     struct Coin {
@@ -25,6 +33,8 @@ contract Product is IProductManager, Ownable, IProduct {
         string extend;
         uint256 price; // CPC price
         address creator;
+        string file_uri;
+        string file_hash;
         bool removed;
         bool disabled;
         bool enabled_cpc; // If enable the CPC payment way
@@ -33,6 +43,7 @@ contract Product is IProductManager, Ownable, IProduct {
     uint256 private _product_cnt = 0;
     mapping(uint256 => ProductItem) _products;
     mapping(string => bool) _product_names;
+    mapping(string => Library.Data) _files; // file_uri => file_hash
 
     // Payment way of a products
     struct ProductPaymentWay {
@@ -142,8 +153,9 @@ contract Product is IProductManager, Ownable, IProduct {
      * Create product, returns a generated product id.
      * Emits a {CreateProduct} event.
      */
-    function createProduct(string name, string extend, uint256 price) external onlyEnabled returns (uint256) {
+    function createProduct(string name, string extend, uint256 price, string file_uri, string file_hash) external onlyEnabled returns (uint256) {
         require(!_product_names[name], "This name already exists!");
+        require(!_files[file_uri].existed, "This file_uri already exists!");
         _product_seq += 1;
         _product_names[name] = true;
         _products[_product_seq] = ProductItem({
@@ -151,18 +163,28 @@ contract Product is IProductManager, Ownable, IProduct {
             name: name,
             extend: extend,
             creator: msg.sender,
+            file_uri: file_uri,
+            file_hash: file_hash,
             price: price,
             disabled: false,
             enabled_cpc: true,
             removed: false
         });
         _product_cnt += 1;
-        emit CreateProduct(_product_seq, name, extend, price, msg.sender);
+        _files[file_uri] = Library.Data({val: file_hash, existed: true});
+        emit CreateProduct(_product_seq, name, extend, price, msg.sender, file_uri, file_hash);
         return _product_seq;
     }
 
     function equals(string memory a, string memory b) internal pure returns (bool) {
         return keccak256(bytes(a)) == keccak256(bytes(b));
+    }
+
+    /**
+     * If the file exists
+     */
+    function isFileHashExists(string file_uri, string file_hash) external view returns (bool) {
+        return _files[file_uri].existed && equals(_files[file_uri].val, file_hash);
     }
 
     /**
@@ -223,6 +245,20 @@ contract Product is IProductManager, Ownable, IProduct {
      */
     function getPriceOfProduct(uint256 id) external view returns (uint256) {
         return _products[id].price;
+    }
+
+    /**
+     * Get file uri
+     */
+    function getFileUri(uint256 id) external view returns (string) {
+        return _products[id].file_uri;
+    }
+
+    /**
+     * Get file hash
+     */
+    function getFileHash(uint256 id) external view returns (string) {
+        return _products[id].file_hash;
     }
 
     /**
