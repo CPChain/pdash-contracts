@@ -1,0 +1,2236 @@
+{
+  "contractName": "IProductManager",
+  "abi": [
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "name": "id",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "name": "erc20",
+          "type": "address"
+        }
+      ],
+      "name": "AddNewERC20",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "name": "id",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "name": "erc20",
+          "type": "address"
+        }
+      ],
+      "name": "RemoveERC20",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "name": "id",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "name": "erc20",
+          "type": "address"
+        }
+      ],
+      "name": "DisableERC20",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "name": "id",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "name": "erc20",
+          "type": "address"
+        }
+      ],
+      "name": "EnableERC20",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "name": "id",
+          "type": "uint256"
+        }
+      ],
+      "name": "AdminDisableProduct",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "name": "id",
+          "type": "uint256"
+        }
+      ],
+      "name": "AdminEnableProduct",
+      "type": "event"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "erc20",
+          "type": "address"
+        }
+      ],
+      "name": "addERC20",
+      "outputs": [
+        {
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "id",
+          "type": "uint256"
+        }
+      ],
+      "name": "getERC20",
+      "outputs": [
+        {
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "id",
+          "type": "uint256"
+        }
+      ],
+      "name": "removeERC20",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "id",
+          "type": "uint256"
+        }
+      ],
+      "name": "disableERC20",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "id",
+          "type": "uint256"
+        }
+      ],
+      "name": "enableERC20",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "id",
+          "type": "uint256"
+        }
+      ],
+      "name": "isERC20Disabled",
+      "outputs": [
+        {
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "id",
+          "type": "uint256"
+        }
+      ],
+      "name": "disableProduct",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "id",
+          "type": "uint256"
+        }
+      ],
+      "name": "enableProduct",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    }
+  ],
+  "metadata": "",
+  "bytecode": "0x",
+  "deployedBytecode": "0x",
+  "sourceMap": "",
+  "deployedSourceMap": "",
+  "source": "pragma solidity ^0.4.24;\n\ninterface IProductManager {\n    // AddNewERC20 event\n    event AddNewERC20(uint id, address erc20);\n\n    // RemoveERC20 event\n    event RemoveERC20(uint id, address erc20);\n\n    // DisableERC20 event\n    event DisableERC20(uint id, address erc20);\n\n    // EnableERC20 event\n    event EnableERC20(uint id, address erc20);\n\n    // AdminDisableProduct event\n    event AdminDisableProduct(uint256 id);\n\n    // AdminEnableProduct event\n    event AdminEnableProduct(uint256 id);\n\n    /**\n     * Add new ERC20, returns a generated ID.\n     * Emits a {AddNewERC20} event.\n     */\n    function addERC20(address erc20) external returns (uint);\n\n    /**\n     * Get ERC20 address by ID\n     */\n    function getERC20(uint id) external view returns (address);\n\n    /**\n     * Remove a ERC20\n     * Emits a {RemoveERC20} event\n     */\n    function removeERC20(uint id) external; \n\n    /**\n     * Disable a ERC20\n     * Emits a {DisableERC20} event.\n     */\n    function disableERC20(uint id) external;\n\n    /**\n     * Enable a ERC20\n     * Emits a {EnableERC20} event.\n     */\n    function enableERC20(uint id) external;\n\n    /**\n     * Check if disabled\n     */\n    function isERC20Disabled(uint id) external view returns (bool);\n\n    /**\n     * Disable product by admin\n     * Emits a {AdminDisableProduct} event.\n     */\n    function disableProduct(uint256 id) external;\n\n    /**\n     * Enable product by admin\n     * Emits a {AdminEnableProduct} event.\n     */\n    function enableProduct(uint256 id) external;\n\n}\n",
+  "sourcePath": "/Users/liaojinlong/Workspace/CPChain/pdash-contracts/contracts/interfaces/IProductManager.sol",
+  "ast": {
+    "absolutePath": "/Users/liaojinlong/Workspace/CPChain/pdash-contracts/contracts/interfaces/IProductManager.sol",
+    "exportedSymbols": {
+      "IProductManager": [
+        1442
+      ]
+    },
+    "id": 1443,
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 1363,
+        "literals": [
+          "solidity",
+          "^",
+          "0.4",
+          ".24"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "0:24:3"
+      },
+      {
+        "baseContracts": [],
+        "contractDependencies": [],
+        "contractKind": "interface",
+        "documentation": null,
+        "fullyImplemented": false,
+        "id": 1442,
+        "linearizedBaseContracts": [
+          1442
+        ],
+        "name": "IProductManager",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "anonymous": false,
+            "documentation": null,
+            "id": 1369,
+            "name": "AddNewERC20",
+            "nodeType": "EventDefinition",
+            "parameters": {
+              "id": 1368,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 1365,
+                  "indexed": false,
+                  "name": "id",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 1369,
+                  "src": "101:7:3",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 1364,
+                    "name": "uint",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "101:4:3",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 1367,
+                  "indexed": false,
+                  "name": "erc20",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 1369,
+                  "src": "110:13:3",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 1366,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "110:7:3",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "100:24:3"
+            },
+            "src": "83:42:3"
+          },
+          {
+            "anonymous": false,
+            "documentation": null,
+            "id": 1375,
+            "name": "RemoveERC20",
+            "nodeType": "EventDefinition",
+            "parameters": {
+              "id": 1374,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 1371,
+                  "indexed": false,
+                  "name": "id",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 1375,
+                  "src": "174:7:3",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 1370,
+                    "name": "uint",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "174:4:3",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 1373,
+                  "indexed": false,
+                  "name": "erc20",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 1375,
+                  "src": "183:13:3",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 1372,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "183:7:3",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "173:24:3"
+            },
+            "src": "156:42:3"
+          },
+          {
+            "anonymous": false,
+            "documentation": null,
+            "id": 1381,
+            "name": "DisableERC20",
+            "nodeType": "EventDefinition",
+            "parameters": {
+              "id": 1380,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 1377,
+                  "indexed": false,
+                  "name": "id",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 1381,
+                  "src": "249:7:3",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 1376,
+                    "name": "uint",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "249:4:3",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 1379,
+                  "indexed": false,
+                  "name": "erc20",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 1381,
+                  "src": "258:13:3",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 1378,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "258:7:3",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "248:24:3"
+            },
+            "src": "230:43:3"
+          },
+          {
+            "anonymous": false,
+            "documentation": null,
+            "id": 1387,
+            "name": "EnableERC20",
+            "nodeType": "EventDefinition",
+            "parameters": {
+              "id": 1386,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 1383,
+                  "indexed": false,
+                  "name": "id",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 1387,
+                  "src": "322:7:3",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 1382,
+                    "name": "uint",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "322:4:3",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 1385,
+                  "indexed": false,
+                  "name": "erc20",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 1387,
+                  "src": "331:13:3",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 1384,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "331:7:3",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "321:24:3"
+            },
+            "src": "304:42:3"
+          },
+          {
+            "anonymous": false,
+            "documentation": null,
+            "id": 1391,
+            "name": "AdminDisableProduct",
+            "nodeType": "EventDefinition",
+            "parameters": {
+              "id": 1390,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 1389,
+                  "indexed": false,
+                  "name": "id",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 1391,
+                  "src": "411:10:3",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 1388,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "411:7:3",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "410:12:3"
+            },
+            "src": "385:38:3"
+          },
+          {
+            "anonymous": false,
+            "documentation": null,
+            "id": 1395,
+            "name": "AdminEnableProduct",
+            "nodeType": "EventDefinition",
+            "parameters": {
+              "id": 1394,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 1393,
+                  "indexed": false,
+                  "name": "id",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 1395,
+                  "src": "486:10:3",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 1392,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "486:7:3",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "485:12:3"
+            },
+            "src": "461:37:3"
+          },
+          {
+            "body": null,
+            "documentation": "Add new ERC20, returns a generated ID.\nEmits a {AddNewERC20} event.",
+            "id": 1402,
+            "implemented": false,
+            "isConstructor": false,
+            "isDeclaredConst": false,
+            "modifiers": [],
+            "name": "addERC20",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 1398,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 1397,
+                  "name": "erc20",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 1402,
+                  "src": "620:13:3",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 1396,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "620:7:3",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "619:15:3"
+            },
+            "payable": false,
+            "returnParameters": {
+              "id": 1401,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 1400,
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 1402,
+                  "src": "653:4:3",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 1399,
+                    "name": "uint",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "653:4:3",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "652:6:3"
+            },
+            "scope": 1442,
+            "src": "602:57:3",
+            "stateMutability": "nonpayable",
+            "superFunction": null,
+            "visibility": "external"
+          },
+          {
+            "body": null,
+            "documentation": "Get ERC20 address by ID",
+            "id": 1409,
+            "implemented": false,
+            "isConstructor": false,
+            "isDeclaredConst": true,
+            "modifiers": [],
+            "name": "getERC20",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 1405,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 1404,
+                  "name": "id",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 1409,
+                  "src": "730:7:3",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 1403,
+                    "name": "uint",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "730:4:3",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "729:9:3"
+            },
+            "payable": false,
+            "returnParameters": {
+              "id": 1408,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 1407,
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 1409,
+                  "src": "762:7:3",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 1406,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "762:7:3",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "761:9:3"
+            },
+            "scope": 1442,
+            "src": "712:59:3",
+            "stateMutability": "view",
+            "superFunction": null,
+            "visibility": "external"
+          },
+          {
+            "body": null,
+            "documentation": "Remove a ERC20\nEmits a {RemoveERC20} event",
+            "id": 1414,
+            "implemented": false,
+            "isConstructor": false,
+            "isDeclaredConst": false,
+            "modifiers": [],
+            "name": "removeERC20",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 1412,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 1411,
+                  "name": "id",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 1414,
+                  "src": "871:7:3",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 1410,
+                    "name": "uint",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "871:4:3",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "870:9:3"
+            },
+            "payable": false,
+            "returnParameters": {
+              "id": 1413,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "888:0:3"
+            },
+            "scope": 1442,
+            "src": "850:39:3",
+            "stateMutability": "nonpayable",
+            "superFunction": null,
+            "visibility": "external"
+          },
+          {
+            "body": null,
+            "documentation": "Disable a ERC20\nEmits a {DisableERC20} event.",
+            "id": 1419,
+            "implemented": false,
+            "isConstructor": false,
+            "isDeclaredConst": false,
+            "modifiers": [],
+            "name": "disableERC20",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 1417,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 1416,
+                  "name": "id",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 1419,
+                  "src": "994:7:3",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 1415,
+                    "name": "uint",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "994:4:3",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "993:9:3"
+            },
+            "payable": false,
+            "returnParameters": {
+              "id": 1418,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "1011:0:3"
+            },
+            "scope": 1442,
+            "src": "972:40:3",
+            "stateMutability": "nonpayable",
+            "superFunction": null,
+            "visibility": "external"
+          },
+          {
+            "body": null,
+            "documentation": "Enable a ERC20\nEmits a {EnableERC20} event.",
+            "id": 1424,
+            "implemented": false,
+            "isConstructor": false,
+            "isDeclaredConst": false,
+            "modifiers": [],
+            "name": "enableERC20",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 1422,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 1421,
+                  "name": "id",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 1424,
+                  "src": "1113:7:3",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 1420,
+                    "name": "uint",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1113:4:3",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "1112:9:3"
+            },
+            "payable": false,
+            "returnParameters": {
+              "id": 1423,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "1130:0:3"
+            },
+            "scope": 1442,
+            "src": "1092:39:3",
+            "stateMutability": "nonpayable",
+            "superFunction": null,
+            "visibility": "external"
+          },
+          {
+            "body": null,
+            "documentation": "Check if disabled",
+            "id": 1431,
+            "implemented": false,
+            "isConstructor": false,
+            "isDeclaredConst": true,
+            "modifiers": [],
+            "name": "isERC20Disabled",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 1427,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 1426,
+                  "name": "id",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 1431,
+                  "src": "1203:7:3",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 1425,
+                    "name": "uint",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1203:4:3",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "1202:9:3"
+            },
+            "payable": false,
+            "returnParameters": {
+              "id": 1430,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 1429,
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 1431,
+                  "src": "1235:4:3",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bool",
+                    "typeString": "bool"
+                  },
+                  "typeName": {
+                    "id": 1428,
+                    "name": "bool",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1235:4:3",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bool",
+                      "typeString": "bool"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "1234:6:3"
+            },
+            "scope": 1442,
+            "src": "1178:63:3",
+            "stateMutability": "view",
+            "superFunction": null,
+            "visibility": "external"
+          },
+          {
+            "body": null,
+            "documentation": "Disable product by admin\nEmits a {AdminDisableProduct} event.",
+            "id": 1436,
+            "implemented": false,
+            "isConstructor": false,
+            "isDeclaredConst": false,
+            "modifiers": [],
+            "name": "disableProduct",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 1434,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 1433,
+                  "name": "id",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 1436,
+                  "src": "1363:10:3",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 1432,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1363:7:3",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "1362:12:3"
+            },
+            "payable": false,
+            "returnParameters": {
+              "id": 1435,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "1383:0:3"
+            },
+            "scope": 1442,
+            "src": "1339:45:3",
+            "stateMutability": "nonpayable",
+            "superFunction": null,
+            "visibility": "external"
+          },
+          {
+            "body": null,
+            "documentation": "Enable product by admin\nEmits a {AdminEnableProduct} event.",
+            "id": 1441,
+            "implemented": false,
+            "isConstructor": false,
+            "isDeclaredConst": false,
+            "modifiers": [],
+            "name": "enableProduct",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 1439,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 1438,
+                  "name": "id",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 1441,
+                  "src": "1503:10:3",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 1437,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1503:7:3",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "1502:12:3"
+            },
+            "payable": false,
+            "returnParameters": {
+              "id": 1440,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "1523:0:3"
+            },
+            "scope": 1442,
+            "src": "1480:44:3",
+            "stateMutability": "nonpayable",
+            "superFunction": null,
+            "visibility": "external"
+          }
+        ],
+        "scope": 1443,
+        "src": "26:1501:3"
+      }
+    ],
+    "src": "0:1528:3"
+  },
+  "legacyAST": {
+    "attributes": {
+      "absolutePath": "/Users/liaojinlong/Workspace/CPChain/pdash-contracts/contracts/interfaces/IProductManager.sol",
+      "exportedSymbols": {
+        "IProductManager": [
+          1442
+        ]
+      }
+    },
+    "children": [
+      {
+        "attributes": {
+          "literals": [
+            "solidity",
+            "^",
+            "0.4",
+            ".24"
+          ]
+        },
+        "id": 1363,
+        "name": "PragmaDirective",
+        "src": "0:24:3"
+      },
+      {
+        "attributes": {
+          "baseContracts": [
+            null
+          ],
+          "contractDependencies": [
+            null
+          ],
+          "contractKind": "interface",
+          "documentation": null,
+          "fullyImplemented": false,
+          "linearizedBaseContracts": [
+            1442
+          ],
+          "name": "IProductManager",
+          "scope": 1443
+        },
+        "children": [
+          {
+            "attributes": {
+              "anonymous": false,
+              "documentation": null,
+              "name": "AddNewERC20"
+            },
+            "children": [
+              {
+                "children": [
+                  {
+                    "attributes": {
+                      "constant": false,
+                      "indexed": false,
+                      "name": "id",
+                      "scope": 1369,
+                      "stateVariable": false,
+                      "storageLocation": "default",
+                      "type": "uint256",
+                      "value": null,
+                      "visibility": "internal"
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "name": "uint",
+                          "type": "uint256"
+                        },
+                        "id": 1364,
+                        "name": "ElementaryTypeName",
+                        "src": "101:4:3"
+                      }
+                    ],
+                    "id": 1365,
+                    "name": "VariableDeclaration",
+                    "src": "101:7:3"
+                  },
+                  {
+                    "attributes": {
+                      "constant": false,
+                      "indexed": false,
+                      "name": "erc20",
+                      "scope": 1369,
+                      "stateVariable": false,
+                      "storageLocation": "default",
+                      "type": "address",
+                      "value": null,
+                      "visibility": "internal"
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "name": "address",
+                          "type": "address"
+                        },
+                        "id": 1366,
+                        "name": "ElementaryTypeName",
+                        "src": "110:7:3"
+                      }
+                    ],
+                    "id": 1367,
+                    "name": "VariableDeclaration",
+                    "src": "110:13:3"
+                  }
+                ],
+                "id": 1368,
+                "name": "ParameterList",
+                "src": "100:24:3"
+              }
+            ],
+            "id": 1369,
+            "name": "EventDefinition",
+            "src": "83:42:3"
+          },
+          {
+            "attributes": {
+              "anonymous": false,
+              "documentation": null,
+              "name": "RemoveERC20"
+            },
+            "children": [
+              {
+                "children": [
+                  {
+                    "attributes": {
+                      "constant": false,
+                      "indexed": false,
+                      "name": "id",
+                      "scope": 1375,
+                      "stateVariable": false,
+                      "storageLocation": "default",
+                      "type": "uint256",
+                      "value": null,
+                      "visibility": "internal"
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "name": "uint",
+                          "type": "uint256"
+                        },
+                        "id": 1370,
+                        "name": "ElementaryTypeName",
+                        "src": "174:4:3"
+                      }
+                    ],
+                    "id": 1371,
+                    "name": "VariableDeclaration",
+                    "src": "174:7:3"
+                  },
+                  {
+                    "attributes": {
+                      "constant": false,
+                      "indexed": false,
+                      "name": "erc20",
+                      "scope": 1375,
+                      "stateVariable": false,
+                      "storageLocation": "default",
+                      "type": "address",
+                      "value": null,
+                      "visibility": "internal"
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "name": "address",
+                          "type": "address"
+                        },
+                        "id": 1372,
+                        "name": "ElementaryTypeName",
+                        "src": "183:7:3"
+                      }
+                    ],
+                    "id": 1373,
+                    "name": "VariableDeclaration",
+                    "src": "183:13:3"
+                  }
+                ],
+                "id": 1374,
+                "name": "ParameterList",
+                "src": "173:24:3"
+              }
+            ],
+            "id": 1375,
+            "name": "EventDefinition",
+            "src": "156:42:3"
+          },
+          {
+            "attributes": {
+              "anonymous": false,
+              "documentation": null,
+              "name": "DisableERC20"
+            },
+            "children": [
+              {
+                "children": [
+                  {
+                    "attributes": {
+                      "constant": false,
+                      "indexed": false,
+                      "name": "id",
+                      "scope": 1381,
+                      "stateVariable": false,
+                      "storageLocation": "default",
+                      "type": "uint256",
+                      "value": null,
+                      "visibility": "internal"
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "name": "uint",
+                          "type": "uint256"
+                        },
+                        "id": 1376,
+                        "name": "ElementaryTypeName",
+                        "src": "249:4:3"
+                      }
+                    ],
+                    "id": 1377,
+                    "name": "VariableDeclaration",
+                    "src": "249:7:3"
+                  },
+                  {
+                    "attributes": {
+                      "constant": false,
+                      "indexed": false,
+                      "name": "erc20",
+                      "scope": 1381,
+                      "stateVariable": false,
+                      "storageLocation": "default",
+                      "type": "address",
+                      "value": null,
+                      "visibility": "internal"
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "name": "address",
+                          "type": "address"
+                        },
+                        "id": 1378,
+                        "name": "ElementaryTypeName",
+                        "src": "258:7:3"
+                      }
+                    ],
+                    "id": 1379,
+                    "name": "VariableDeclaration",
+                    "src": "258:13:3"
+                  }
+                ],
+                "id": 1380,
+                "name": "ParameterList",
+                "src": "248:24:3"
+              }
+            ],
+            "id": 1381,
+            "name": "EventDefinition",
+            "src": "230:43:3"
+          },
+          {
+            "attributes": {
+              "anonymous": false,
+              "documentation": null,
+              "name": "EnableERC20"
+            },
+            "children": [
+              {
+                "children": [
+                  {
+                    "attributes": {
+                      "constant": false,
+                      "indexed": false,
+                      "name": "id",
+                      "scope": 1387,
+                      "stateVariable": false,
+                      "storageLocation": "default",
+                      "type": "uint256",
+                      "value": null,
+                      "visibility": "internal"
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "name": "uint",
+                          "type": "uint256"
+                        },
+                        "id": 1382,
+                        "name": "ElementaryTypeName",
+                        "src": "322:4:3"
+                      }
+                    ],
+                    "id": 1383,
+                    "name": "VariableDeclaration",
+                    "src": "322:7:3"
+                  },
+                  {
+                    "attributes": {
+                      "constant": false,
+                      "indexed": false,
+                      "name": "erc20",
+                      "scope": 1387,
+                      "stateVariable": false,
+                      "storageLocation": "default",
+                      "type": "address",
+                      "value": null,
+                      "visibility": "internal"
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "name": "address",
+                          "type": "address"
+                        },
+                        "id": 1384,
+                        "name": "ElementaryTypeName",
+                        "src": "331:7:3"
+                      }
+                    ],
+                    "id": 1385,
+                    "name": "VariableDeclaration",
+                    "src": "331:13:3"
+                  }
+                ],
+                "id": 1386,
+                "name": "ParameterList",
+                "src": "321:24:3"
+              }
+            ],
+            "id": 1387,
+            "name": "EventDefinition",
+            "src": "304:42:3"
+          },
+          {
+            "attributes": {
+              "anonymous": false,
+              "documentation": null,
+              "name": "AdminDisableProduct"
+            },
+            "children": [
+              {
+                "children": [
+                  {
+                    "attributes": {
+                      "constant": false,
+                      "indexed": false,
+                      "name": "id",
+                      "scope": 1391,
+                      "stateVariable": false,
+                      "storageLocation": "default",
+                      "type": "uint256",
+                      "value": null,
+                      "visibility": "internal"
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "name": "uint256",
+                          "type": "uint256"
+                        },
+                        "id": 1388,
+                        "name": "ElementaryTypeName",
+                        "src": "411:7:3"
+                      }
+                    ],
+                    "id": 1389,
+                    "name": "VariableDeclaration",
+                    "src": "411:10:3"
+                  }
+                ],
+                "id": 1390,
+                "name": "ParameterList",
+                "src": "410:12:3"
+              }
+            ],
+            "id": 1391,
+            "name": "EventDefinition",
+            "src": "385:38:3"
+          },
+          {
+            "attributes": {
+              "anonymous": false,
+              "documentation": null,
+              "name": "AdminEnableProduct"
+            },
+            "children": [
+              {
+                "children": [
+                  {
+                    "attributes": {
+                      "constant": false,
+                      "indexed": false,
+                      "name": "id",
+                      "scope": 1395,
+                      "stateVariable": false,
+                      "storageLocation": "default",
+                      "type": "uint256",
+                      "value": null,
+                      "visibility": "internal"
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "name": "uint256",
+                          "type": "uint256"
+                        },
+                        "id": 1392,
+                        "name": "ElementaryTypeName",
+                        "src": "486:7:3"
+                      }
+                    ],
+                    "id": 1393,
+                    "name": "VariableDeclaration",
+                    "src": "486:10:3"
+                  }
+                ],
+                "id": 1394,
+                "name": "ParameterList",
+                "src": "485:12:3"
+              }
+            ],
+            "id": 1395,
+            "name": "EventDefinition",
+            "src": "461:37:3"
+          },
+          {
+            "attributes": {
+              "body": null,
+              "constant": false,
+              "documentation": "Add new ERC20, returns a generated ID.\nEmits a {AddNewERC20} event.",
+              "implemented": false,
+              "isConstructor": false,
+              "modifiers": [
+                null
+              ],
+              "name": "addERC20",
+              "payable": false,
+              "scope": 1442,
+              "stateMutability": "nonpayable",
+              "superFunction": null,
+              "visibility": "external"
+            },
+            "children": [
+              {
+                "children": [
+                  {
+                    "attributes": {
+                      "constant": false,
+                      "name": "erc20",
+                      "scope": 1402,
+                      "stateVariable": false,
+                      "storageLocation": "default",
+                      "type": "address",
+                      "value": null,
+                      "visibility": "internal"
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "name": "address",
+                          "type": "address"
+                        },
+                        "id": 1396,
+                        "name": "ElementaryTypeName",
+                        "src": "620:7:3"
+                      }
+                    ],
+                    "id": 1397,
+                    "name": "VariableDeclaration",
+                    "src": "620:13:3"
+                  }
+                ],
+                "id": 1398,
+                "name": "ParameterList",
+                "src": "619:15:3"
+              },
+              {
+                "children": [
+                  {
+                    "attributes": {
+                      "constant": false,
+                      "name": "",
+                      "scope": 1402,
+                      "stateVariable": false,
+                      "storageLocation": "default",
+                      "type": "uint256",
+                      "value": null,
+                      "visibility": "internal"
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "name": "uint",
+                          "type": "uint256"
+                        },
+                        "id": 1399,
+                        "name": "ElementaryTypeName",
+                        "src": "653:4:3"
+                      }
+                    ],
+                    "id": 1400,
+                    "name": "VariableDeclaration",
+                    "src": "653:4:3"
+                  }
+                ],
+                "id": 1401,
+                "name": "ParameterList",
+                "src": "652:6:3"
+              }
+            ],
+            "id": 1402,
+            "name": "FunctionDefinition",
+            "src": "602:57:3"
+          },
+          {
+            "attributes": {
+              "body": null,
+              "constant": true,
+              "documentation": "Get ERC20 address by ID",
+              "implemented": false,
+              "isConstructor": false,
+              "modifiers": [
+                null
+              ],
+              "name": "getERC20",
+              "payable": false,
+              "scope": 1442,
+              "stateMutability": "view",
+              "superFunction": null,
+              "visibility": "external"
+            },
+            "children": [
+              {
+                "children": [
+                  {
+                    "attributes": {
+                      "constant": false,
+                      "name": "id",
+                      "scope": 1409,
+                      "stateVariable": false,
+                      "storageLocation": "default",
+                      "type": "uint256",
+                      "value": null,
+                      "visibility": "internal"
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "name": "uint",
+                          "type": "uint256"
+                        },
+                        "id": 1403,
+                        "name": "ElementaryTypeName",
+                        "src": "730:4:3"
+                      }
+                    ],
+                    "id": 1404,
+                    "name": "VariableDeclaration",
+                    "src": "730:7:3"
+                  }
+                ],
+                "id": 1405,
+                "name": "ParameterList",
+                "src": "729:9:3"
+              },
+              {
+                "children": [
+                  {
+                    "attributes": {
+                      "constant": false,
+                      "name": "",
+                      "scope": 1409,
+                      "stateVariable": false,
+                      "storageLocation": "default",
+                      "type": "address",
+                      "value": null,
+                      "visibility": "internal"
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "name": "address",
+                          "type": "address"
+                        },
+                        "id": 1406,
+                        "name": "ElementaryTypeName",
+                        "src": "762:7:3"
+                      }
+                    ],
+                    "id": 1407,
+                    "name": "VariableDeclaration",
+                    "src": "762:7:3"
+                  }
+                ],
+                "id": 1408,
+                "name": "ParameterList",
+                "src": "761:9:3"
+              }
+            ],
+            "id": 1409,
+            "name": "FunctionDefinition",
+            "src": "712:59:3"
+          },
+          {
+            "attributes": {
+              "body": null,
+              "constant": false,
+              "documentation": "Remove a ERC20\nEmits a {RemoveERC20} event",
+              "implemented": false,
+              "isConstructor": false,
+              "modifiers": [
+                null
+              ],
+              "name": "removeERC20",
+              "payable": false,
+              "scope": 1442,
+              "stateMutability": "nonpayable",
+              "superFunction": null,
+              "visibility": "external"
+            },
+            "children": [
+              {
+                "children": [
+                  {
+                    "attributes": {
+                      "constant": false,
+                      "name": "id",
+                      "scope": 1414,
+                      "stateVariable": false,
+                      "storageLocation": "default",
+                      "type": "uint256",
+                      "value": null,
+                      "visibility": "internal"
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "name": "uint",
+                          "type": "uint256"
+                        },
+                        "id": 1410,
+                        "name": "ElementaryTypeName",
+                        "src": "871:4:3"
+                      }
+                    ],
+                    "id": 1411,
+                    "name": "VariableDeclaration",
+                    "src": "871:7:3"
+                  }
+                ],
+                "id": 1412,
+                "name": "ParameterList",
+                "src": "870:9:3"
+              },
+              {
+                "attributes": {
+                  "parameters": [
+                    null
+                  ]
+                },
+                "children": [],
+                "id": 1413,
+                "name": "ParameterList",
+                "src": "888:0:3"
+              }
+            ],
+            "id": 1414,
+            "name": "FunctionDefinition",
+            "src": "850:39:3"
+          },
+          {
+            "attributes": {
+              "body": null,
+              "constant": false,
+              "documentation": "Disable a ERC20\nEmits a {DisableERC20} event.",
+              "implemented": false,
+              "isConstructor": false,
+              "modifiers": [
+                null
+              ],
+              "name": "disableERC20",
+              "payable": false,
+              "scope": 1442,
+              "stateMutability": "nonpayable",
+              "superFunction": null,
+              "visibility": "external"
+            },
+            "children": [
+              {
+                "children": [
+                  {
+                    "attributes": {
+                      "constant": false,
+                      "name": "id",
+                      "scope": 1419,
+                      "stateVariable": false,
+                      "storageLocation": "default",
+                      "type": "uint256",
+                      "value": null,
+                      "visibility": "internal"
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "name": "uint",
+                          "type": "uint256"
+                        },
+                        "id": 1415,
+                        "name": "ElementaryTypeName",
+                        "src": "994:4:3"
+                      }
+                    ],
+                    "id": 1416,
+                    "name": "VariableDeclaration",
+                    "src": "994:7:3"
+                  }
+                ],
+                "id": 1417,
+                "name": "ParameterList",
+                "src": "993:9:3"
+              },
+              {
+                "attributes": {
+                  "parameters": [
+                    null
+                  ]
+                },
+                "children": [],
+                "id": 1418,
+                "name": "ParameterList",
+                "src": "1011:0:3"
+              }
+            ],
+            "id": 1419,
+            "name": "FunctionDefinition",
+            "src": "972:40:3"
+          },
+          {
+            "attributes": {
+              "body": null,
+              "constant": false,
+              "documentation": "Enable a ERC20\nEmits a {EnableERC20} event.",
+              "implemented": false,
+              "isConstructor": false,
+              "modifiers": [
+                null
+              ],
+              "name": "enableERC20",
+              "payable": false,
+              "scope": 1442,
+              "stateMutability": "nonpayable",
+              "superFunction": null,
+              "visibility": "external"
+            },
+            "children": [
+              {
+                "children": [
+                  {
+                    "attributes": {
+                      "constant": false,
+                      "name": "id",
+                      "scope": 1424,
+                      "stateVariable": false,
+                      "storageLocation": "default",
+                      "type": "uint256",
+                      "value": null,
+                      "visibility": "internal"
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "name": "uint",
+                          "type": "uint256"
+                        },
+                        "id": 1420,
+                        "name": "ElementaryTypeName",
+                        "src": "1113:4:3"
+                      }
+                    ],
+                    "id": 1421,
+                    "name": "VariableDeclaration",
+                    "src": "1113:7:3"
+                  }
+                ],
+                "id": 1422,
+                "name": "ParameterList",
+                "src": "1112:9:3"
+              },
+              {
+                "attributes": {
+                  "parameters": [
+                    null
+                  ]
+                },
+                "children": [],
+                "id": 1423,
+                "name": "ParameterList",
+                "src": "1130:0:3"
+              }
+            ],
+            "id": 1424,
+            "name": "FunctionDefinition",
+            "src": "1092:39:3"
+          },
+          {
+            "attributes": {
+              "body": null,
+              "constant": true,
+              "documentation": "Check if disabled",
+              "implemented": false,
+              "isConstructor": false,
+              "modifiers": [
+                null
+              ],
+              "name": "isERC20Disabled",
+              "payable": false,
+              "scope": 1442,
+              "stateMutability": "view",
+              "superFunction": null,
+              "visibility": "external"
+            },
+            "children": [
+              {
+                "children": [
+                  {
+                    "attributes": {
+                      "constant": false,
+                      "name": "id",
+                      "scope": 1431,
+                      "stateVariable": false,
+                      "storageLocation": "default",
+                      "type": "uint256",
+                      "value": null,
+                      "visibility": "internal"
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "name": "uint",
+                          "type": "uint256"
+                        },
+                        "id": 1425,
+                        "name": "ElementaryTypeName",
+                        "src": "1203:4:3"
+                      }
+                    ],
+                    "id": 1426,
+                    "name": "VariableDeclaration",
+                    "src": "1203:7:3"
+                  }
+                ],
+                "id": 1427,
+                "name": "ParameterList",
+                "src": "1202:9:3"
+              },
+              {
+                "children": [
+                  {
+                    "attributes": {
+                      "constant": false,
+                      "name": "",
+                      "scope": 1431,
+                      "stateVariable": false,
+                      "storageLocation": "default",
+                      "type": "bool",
+                      "value": null,
+                      "visibility": "internal"
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "name": "bool",
+                          "type": "bool"
+                        },
+                        "id": 1428,
+                        "name": "ElementaryTypeName",
+                        "src": "1235:4:3"
+                      }
+                    ],
+                    "id": 1429,
+                    "name": "VariableDeclaration",
+                    "src": "1235:4:3"
+                  }
+                ],
+                "id": 1430,
+                "name": "ParameterList",
+                "src": "1234:6:3"
+              }
+            ],
+            "id": 1431,
+            "name": "FunctionDefinition",
+            "src": "1178:63:3"
+          },
+          {
+            "attributes": {
+              "body": null,
+              "constant": false,
+              "documentation": "Disable product by admin\nEmits a {AdminDisableProduct} event.",
+              "implemented": false,
+              "isConstructor": false,
+              "modifiers": [
+                null
+              ],
+              "name": "disableProduct",
+              "payable": false,
+              "scope": 1442,
+              "stateMutability": "nonpayable",
+              "superFunction": null,
+              "visibility": "external"
+            },
+            "children": [
+              {
+                "children": [
+                  {
+                    "attributes": {
+                      "constant": false,
+                      "name": "id",
+                      "scope": 1436,
+                      "stateVariable": false,
+                      "storageLocation": "default",
+                      "type": "uint256",
+                      "value": null,
+                      "visibility": "internal"
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "name": "uint256",
+                          "type": "uint256"
+                        },
+                        "id": 1432,
+                        "name": "ElementaryTypeName",
+                        "src": "1363:7:3"
+                      }
+                    ],
+                    "id": 1433,
+                    "name": "VariableDeclaration",
+                    "src": "1363:10:3"
+                  }
+                ],
+                "id": 1434,
+                "name": "ParameterList",
+                "src": "1362:12:3"
+              },
+              {
+                "attributes": {
+                  "parameters": [
+                    null
+                  ]
+                },
+                "children": [],
+                "id": 1435,
+                "name": "ParameterList",
+                "src": "1383:0:3"
+              }
+            ],
+            "id": 1436,
+            "name": "FunctionDefinition",
+            "src": "1339:45:3"
+          },
+          {
+            "attributes": {
+              "body": null,
+              "constant": false,
+              "documentation": "Enable product by admin\nEmits a {AdminEnableProduct} event.",
+              "implemented": false,
+              "isConstructor": false,
+              "modifiers": [
+                null
+              ],
+              "name": "enableProduct",
+              "payable": false,
+              "scope": 1442,
+              "stateMutability": "nonpayable",
+              "superFunction": null,
+              "visibility": "external"
+            },
+            "children": [
+              {
+                "children": [
+                  {
+                    "attributes": {
+                      "constant": false,
+                      "name": "id",
+                      "scope": 1441,
+                      "stateVariable": false,
+                      "storageLocation": "default",
+                      "type": "uint256",
+                      "value": null,
+                      "visibility": "internal"
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "name": "uint256",
+                          "type": "uint256"
+                        },
+                        "id": 1437,
+                        "name": "ElementaryTypeName",
+                        "src": "1503:7:3"
+                      }
+                    ],
+                    "id": 1438,
+                    "name": "VariableDeclaration",
+                    "src": "1503:10:3"
+                  }
+                ],
+                "id": 1439,
+                "name": "ParameterList",
+                "src": "1502:12:3"
+              },
+              {
+                "attributes": {
+                  "parameters": [
+                    null
+                  ]
+                },
+                "children": [],
+                "id": 1440,
+                "name": "ParameterList",
+                "src": "1523:0:3"
+              }
+            ],
+            "id": 1441,
+            "name": "FunctionDefinition",
+            "src": "1480:44:3"
+          }
+        ],
+        "id": 1442,
+        "name": "ContractDefinition",
+        "src": "26:1501:3"
+      }
+    ],
+    "id": 1443,
+    "name": "SourceUnit",
+    "src": "0:1528:3"
+  },
+  "compiler": {
+    "name": "solc",
+    "version": "0.4.25+commit.59dbf8f1.Linux.g++"
+  },
+  "networks": {},
+  "schemaVersion": "3.4.1",
+  "updatedAt": "2021-08-13T08:21:59.249Z",
+  "devdoc": {
+    "methods": {}
+  },
+  "userdoc": {
+    "methods": {
+      "addERC20(address)": {
+        "notice": "Add new ERC20, returns a generated ID. Emits a {AddNewERC20} event."
+      },
+      "disableERC20(uint256)": {
+        "notice": "Disable a ERC20 Emits a {DisableERC20} event."
+      },
+      "disableProduct(uint256)": {
+        "notice": "Disable product by admin Emits a {AdminDisableProduct} event."
+      },
+      "enableERC20(uint256)": {
+        "notice": "Enable a ERC20 Emits a {EnableERC20} event."
+      },
+      "enableProduct(uint256)": {
+        "notice": "Enable product by admin Emits a {AdminEnableProduct} event."
+      },
+      "getERC20(uint256)": {
+        "notice": "Get ERC20 address by ID"
+      },
+      "isERC20Disabled(uint256)": {
+        "notice": "Check if disabled"
+      },
+      "removeERC20(uint256)": {
+        "notice": "Remove a ERC20 Emits a {RemoveERC20} event"
+      }
+    }
+  }
+}
