@@ -195,7 +195,8 @@ contract Product is IProductManager, Ownable, IProduct {
         require(_products[id].id > 0, "This product not exists!");
         require(_products[id].creator == msg.sender, "You're not the creator of this product");
         require(!_products[id].removed, "This product have been removed");
-        if (equals(_products[id].name, name)) {
+        // if changed the product name
+        if (!equals(_products[id].name, name)) {
             require(!_product_names[name], "This name already exists!");
         }
         delete _product_names[_products[id].name];

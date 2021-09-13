@@ -5,6 +5,6 @@
 ```bash
 
 # Deploy the Product Contract
-cpc-fusion deploy --keystore <your keystore>  --abi build/contracts/Product.json --address ""
+cpc-fusion deploy --keystore <your keystore>  --abi build/contracts/Product.json
 
 ```

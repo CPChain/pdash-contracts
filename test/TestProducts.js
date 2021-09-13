@@ -45,12 +45,9 @@ contract("Product", (accounts) => {
     } catch(error) {
       assert.ok(error.toString().includes("This product not exists!"))
     }
-    try {
-      await instance.editProduct(1, 'p1', '{"description": "p2"}', 10)
-      assert.fail()
-    } catch(error) {
-      assert.ok(error.toString().includes("This name already exists!"))
-    }
+    // 不改变 name，改变描述，需能成功
+    await instance.editProduct(1, 'p2', '{"description": "p2-1"}', 10)
+    
     let tx = await instance.editProduct(1, 'p2', '{"description": "p2"}', 10)
     truffleAssert.eventEmitted(tx, 'EditProduct', (e) => {
       assert.equal(e.id, 1)
@@ -162,5 +159,11 @@ contract("Product", (accounts) => {
       })
     }
     assert.equal(await instance.countOfProducts(), 6, "The count should be 1")
+    try {
+      await instance.editProduct(2, 't1', '{"description": "p2"}', 10)
+      assert.fail()
+    } catch(error) {
+      assert.ok(error.toString().includes("This name already exists!"))
+    }
   })
 })
